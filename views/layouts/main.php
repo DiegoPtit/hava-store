@@ -123,14 +123,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     <div class="d-flex align-items-center gap-4">
                         <a href="<?= \yii\helpers\Url::to(['/site/index']) ?>" class="text-dark text-decoration-none small fw-bold">Inicio</a>
 
-                        <a href="#" class="text-dark position-relative text-decoration-none notification-icon" title="Notificaciones">
-                            <i class="bi bi-bell fs-5"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="desktop-notif-badge" style="display: none;">0</span>
-                        </a>
+                        <?php if (!Yii::$app->user->isGuest): ?>
+                            <a href="#" class="text-dark position-relative text-decoration-none notification-icon" title="Notificaciones">
+                                <i class="bi bi-bell fs-5"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="desktop-notif-badge" style="display: none;">0</span>
+                            </a>
 
-                        <a href="<?= \yii\helpers\Url::to(['/compras/index']) ?>" class="text-dark text-decoration-none small fw-bold">Mis compras</a>
+                            <a href="<?= \yii\helpers\Url::to(['/compras/index']) ?>" class="text-dark text-decoration-none small fw-bold">Mis compras</a>
 
-                        <a href="<?= \yii\helpers\Url::to(['/favoritos/index']) ?>" class="text-dark text-decoration-none small fw-bold">Favoritos</a>
+                            <a href="<?= \yii\helpers\Url::to(['/favoritos/index']) ?>" class="text-dark text-decoration-none small fw-bold">Favoritos</a>
+                        <?php endif; ?>
 
                         <!-- User Dropdown -->
                         <div class="dropdown user-dropdown">
@@ -188,18 +190,23 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
                 <ul class="nav flex-column mobile-nav-list gap-2">
                     <li class="nav-item border-bottom pb-2"><a class="nav-link text-dark px-2" href="<?= \yii\helpers\Url::to(['/site/index']) ?>"><i class="bi bi-house me-3 fs-5"></i> Inicio</a></li>
-                    <li class="nav-item border-bottom pb-2">
-                         <a class="nav-link text-dark px-2 d-flex justify-content-between align-items-center" href="#">
-                            <span><i class="bi bi-bell me-3 fs-5"></i> Notificaciones</span>
-                            <span class="badge bg-danger rounded-pill" id="mobile-notif-count" style="display: none;">0</span>
-                        </a>
-                    </li>
-                    <li class="nav-item border-bottom pb-2"><a class="nav-link text-dark px-2" href="<?= \yii\helpers\Url::to(['/compras/index']) ?>"><i class="bi bi-bag me-3 fs-5"></i> Mis compras</a></li>
-                    <li class="nav-item border-bottom pb-2"><a class="nav-link text-dark px-2" href="<?= \yii\helpers\Url::to(['/favoritos/index']) ?>"><i class="bi bi-heart me-3 fs-5"></i> Favoritos</a></li>
-                    <li class="nav-item border-bottom pb-2"><a class="nav-link text-dark px-2" href="#"><i class="bi bi-grid me-3 fs-5"></i> Categorías</a></li>
-                    <li class="nav-item border-bottom pb-2"><a class="nav-link text-dark px-2" href="<?= \yii\helpers\Url::to(['/user/profile']) ?>"><i class="bi bi-person-gear me-3 fs-5"></i> Mi cuenta</a></li>
                     
                     <?php if (!Yii::$app->user->isGuest): ?>
+                        <li class="nav-item border-bottom pb-2">
+                             <a class="nav-link text-dark px-2 d-flex justify-content-between align-items-center" href="#">
+                                <span><i class="bi bi-bell me-3 fs-5"></i> Notificaciones</span>
+                                <span class="badge bg-danger rounded-pill" id="mobile-notif-count" style="display: none;">0</span>
+                            </a>
+                        </li>
+                        <li class="nav-item border-bottom pb-2"><a class="nav-link text-dark px-2" href="<?= \yii\helpers\Url::to(['/compras/index']) ?>"><i class="bi bi-bag me-3 fs-5"></i> Mis compras</a></li>
+                        <li class="nav-item border-bottom pb-2"><a class="nav-link text-dark px-2" href="<?= \yii\helpers\Url::to(['/favoritos/index']) ?>"><i class="bi bi-heart me-3 fs-5"></i> Favoritos</a></li>
+                    <?php endif; ?>
+                    
+                    <li class="nav-item border-bottom pb-2"><a class="nav-link text-dark px-2" href="#"><i class="bi bi-grid me-3 fs-5"></i> Categorías</a></li>
+                    
+                    <?php if (!Yii::$app->user->isGuest): ?>
+                        <li class="nav-item border-bottom pb-2"><a class="nav-link text-dark px-2" href="<?= \yii\helpers\Url::to(['/user/profile']) ?>"><i class="bi bi-person-gear me-3 fs-5"></i> Mi cuenta</a></li>
+                        
                         <li class="nav-item mt-3">
                             <?= Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex']) ?>
                                 <button type="submit" class="nav-link btn btn-link text-danger w-100 text-start px-2 fw-bold"><i class="bi bi-box-arrow-right me-3 fs-5"></i> Cerrar Sesión</button>
