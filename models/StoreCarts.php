@@ -5,15 +5,15 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "categorias".
+ * This is the model class for table "store_carts".
  *
  * @property int $id
- * @property string $titulo
- * @property string|null $descripcion
+ * @property int|null $user_id
+ * @property string|null $token
  * @property string $created_at
- * @property string $updated_at
+ * @property string|null $updated_at
  */
-class Categorias extends \yii\db\ActiveRecord
+class StoreCarts extends \yii\db\ActiveRecord
 {
 
 
@@ -22,7 +22,7 @@ class Categorias extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'categorias';
+        return 'store_carts';
     }
 
     /**
@@ -31,11 +31,10 @@ class Categorias extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descripcion'], 'default', 'value' => null],
-            [['titulo'], 'required'],
-            [['descripcion'], 'string'],
+            [['user_id', 'token', 'updated_at'], 'default', 'value' => null],
+            [['user_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['titulo'], 'string', 'max' => 150],
+            [['token'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,8 +45,8 @@ class Categorias extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'titulo' => Yii::t('app', 'Titulo'),
-            'descripcion' => Yii::t('app', 'Descripcion'),
+            'user_id' => Yii::t('app', 'User ID'),
+            'token' => Yii::t('app', 'Token'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
